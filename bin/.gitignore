@@ -1,8 +1,9 @@
+/math/
+/org/
 /Cord.class
 /Driver.class
 /Gear.class
 /Line.class
-/META-INF
 /Main.class
 /Matrix.class
 /PlatDriver.class
@@ -12,4 +13,4 @@
 /Sun.class
 /Triangle.class
 /Vector.class
-/org
+/math3/
