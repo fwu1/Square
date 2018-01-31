@@ -5,14 +5,24 @@ import org.apache.commons.math3.geometry.euclidean.threed.Plane;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 public class Projection {
-	static double tolerance=1e-4;
-	public static void main(String[] args) {
-		Vector3D camera=new Vector3D(new double[] {0,0,0} );
-		double d_mirror=0.12f;  // distance of mirror
-		double h_mirror=0.01f; // height of the center of the first mirror
-		double d_arm=0.2f;	// length of the arm of second mirror
-		Vector3D p_mirror1=new Vector3D(new double[] {0,h_mirror,d_mirror} );
-		Vector3D p_mirror2=new Vector3D(new double[] {d_arm, 0,d_mirror} );
+	double tolerance=1e-4;
+	Vector3D camera;
+	double d_mirror;  // distance of mirror
+	double h_mirror; // height of the center of the first mirror
+	double d_arm;	// length of the arm of second mirror
+	Vector3D p_mirror1;
+	Vector3D p_mirror2;
+	
+	Projection() {
+		camera=new Vector3D(new double[] {0,0,0} );
+		d_mirror=0.12f;  // distance of mirror
+		h_mirror=0.01f; // height of the center of the first mirror
+		d_arm=0.2f;	// length of the arm of second mirror
+		p_mirror1=new Vector3D(new double[] {0,h_mirror,d_mirror} );
+		p_mirror2=new Vector3D(new double[] {d_arm, 0,d_mirror} );
+	}
+	
+	public Vector3D project(Vector3D delta) {
 		Vector3D p_target=new Vector3D(new double[] {d_arm, 0,d_mirror+1} );
 		
 		Vector3D ray1=camera.subtract(p_mirror1).normalize();
@@ -38,7 +48,6 @@ public class Projection {
 		
 		// check how the ray from camera go
 		
-		Vector3D delta=new Vector3D(new double[] {0*h_mirror,0.0*h_mirror,0} );
 		Vector3D v=p_mirror1.add(delta);  // v is target the ray from camera points to
 		Line line1 = new Line(camera,v,tolerance); // the line the ray from camera is on
 		
@@ -62,7 +71,14 @@ public class Projection {
 		System.out.println("p_ref_mirror1="+p_ref_mirror);
 		Vector3D rayM1toOut=p_atMirror2.subtract(p_ref_mirror).normalize();
 		System.out.println("rayM1toOut="+rayM1toOut);
-		
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		Projection p = new Projection();
+		Vector3D delta0=new Vector3D(new double[] {0,0.0,0} );
+		Vector3D delta=new Vector3D(new double[] {0*p.h_mirror,0.0*p.h_mirror,0} );
+		Vector3D t=p.project(delta0);
 	}
 
 }
